@@ -3,7 +3,27 @@
 #Commence the update process
 sudo apt-get update
 
-sudo apt-get -y  upgrade
+#Ask whether or not to remove all packages
+echo -n "Remove all packages? (Y or N): "
+	read -e answer
+	if [ "$answer" == "Y" ]; then
+		remove_packages
+	fi
+	if [ "$answer" != "Y" ]; then
+		upgrade_packages
+	fi
+function remove_packages {
+	dpkg --clear-selections
+	apt-get dselect-upgrade
+	#List of essential packages that need to be reinstalled (according to Ubuntu)
+	apt-get install apt ubuntu-keyring libapt-pkg4.12 libstdc++6 gnupg base-files bash
+	#List of other useful packages to reinstall
+	apt-get install openssh-server
+}
+function upgrade_packages {
+	sudo apt-get -y  upgrade
+}
+
 
 
 #Banner Used for SSH Login 
