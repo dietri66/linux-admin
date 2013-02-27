@@ -4,14 +4,6 @@
 sudo apt-get update
 
 #Ask whether or not to remove all packages
-echo -n "Remove all packages? (Y or N): "
-	read -e answer
-	if [ "$answer" == "Y" ]; then
-		remove_packages
-	fi
-	if [ "$answer" != "Y" ]; then
-		upgrade_packages
-	fi
 function remove_packages {
 	dpkg --clear-selections
 	apt-get dselect-upgrade
@@ -23,8 +15,14 @@ function remove_packages {
 function upgrade_packages {
 	sudo apt-get -y  upgrade
 }
-
-
+echo -n "Remove all packages? (Y or N): "
+	read -e answer
+	if [ "$answer" == "Y" ]; then
+		remove_packages
+	fi
+	if [ "$answer" != "Y" ]; then
+		upgrade_packages
+	fi
 
 #Banner Used for SSH Login 
 sudo touch /etc/banner
