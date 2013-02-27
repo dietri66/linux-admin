@@ -6,6 +6,7 @@ sudo apt-get update
 #Ask whether or not to remove all packages
 function remove_packages {
 	dpkg --clear-selections
+	echo apt hold | dpkg --set-selections
 	apt-get dselect-upgrade
 	#List of essential packages that need to be reinstalled (according to Ubuntu)
 	apt-get install apt ubuntu-keyring libapt-pkg4.12 libstdc++6 gnupg base-files bash
